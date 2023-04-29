@@ -1,0 +1,70 @@
+﻿
+<div class="text-center mb-xxl-5">
+    <h1 class="h1">Registro de Covid</h1>
+    <label class="h5 lead">El siguiente formulario es para llevar el registro de casos de Covid por departamento y genero</label>
+</div>
+
+<h2 class="h4 pt-xxl-5">Reportar casos</h2>
+
+<form asp-action="CrearRegistro">
+    <div class="form-group row mt-xxl-1">
+        <div class="form-group col">
+        <label class="col-sm-2 col-form-label text-secondary h4 lead">Departamento</label>
+            <div class="col-sm-10">
+                @Html.DropDownList("departamento_id", ViewData["listadoDepartamentos"] as SelectList, "Seleccionar un departamento", new {@class="form-control"})
+            </div>
+        </div>
+        <div class="form-group col">
+        <label class="col-sm-2 col-form-label text-secondary h4 lead">Genero</label>
+            <div class="col-sm-10">
+                @Html.DropDownList("genero_id", ViewData["listadoGeneros"] as SelectList, "Seleccionar un genero", new {@class="form-control"})
+            </div>
+        </div>
+    </div>
+    <div class="form-group row mt-xl-3">
+        <div class="form-group col">
+            <label class="col-form-label text-secondary h4 lead">Casos Confirmados</label>
+            @Html.TextBox("casos_confirmados","",new {@class="form-control"})
+        </div>
+        <div class="form-group col">
+            <label class="col-form-label text-secondary h4 lead">Numero de Recuperados</label>
+            @Html.TextBox("recuperados","",new {@class="form-control"})
+        </div>
+        <div class="form-group col">
+            <label class="col-form-label text-secondary h4 lead">Numero de Fallecidos</label>
+            @Html.TextBox("fallecidos","",new {@class="form-control"})
+        </div>
+    </div>
+    <div class="form-group row mt-xl-3">
+        <button class="col-xxl-4 flex-fill btn btn-success lead btn-lg">Guardar Registro</button>
+    </div>
+    <hr class="hr mt-xl-3" />
+    <div class="form-group mt-xl-3 bg-white">
+        <h2 class="h4 pt-xxl-5">Casos Reportados</h2>
+        <hr class="hr mt-xl-3" />
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Departamento</th>
+                    <th scope="col">Genero</th>
+                    <th scope="col">Confirmados</th>
+                    <th scope="col">Recuperados</th>
+                    <th scope="col">Fallecidos</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var reporte in (IEnumerable<dynamic>)ViewData["listadoReportes"])
+                    {
+                        <tr>
+                            <th scope="row">@reporte.nombre_departamento</th>
+                            <td>@reporte.nombre_genero</td>
+                            <td>@reporte.casos_confirmados</td>
+                            <td>@reporte.recuperados</td>
+                            <td>@reporte.fallecidos</td>
+                        </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+</form>
